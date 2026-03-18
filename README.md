@@ -1,3 +1,5 @@
+# WARNING: This is just a personal copy of the OS, see below for Original Supported Version!
+
 FreeBSD Source:
 ---------------
 This is the top level of the FreeBSD source directory.
