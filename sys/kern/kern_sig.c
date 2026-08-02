@@ -2041,6 +2041,16 @@ kern_sigqueue(struct thread *td, pid_t pid, int signumf, union sigval *value)
 	if (pid <= 0)
 		return (EINVAL);
 
+	/*
+	 * A process in capability mode can send signals only to itself.
+	 */
+	if (pid != td->td_proc->p_pid) {
+		if (CAP_TRACING(td))
+			ktrcapfail(CAPFAIL_SIGNAL, &signum);
+		if (IN_CAPABILITY_MODE(td))
+			return (ECAPMODE);
+	}
+
 	if ((signumf & __SIGQUEUE_TID) == 0) {
 		if ((p = pfind_any(pid)) == NULL)
 			return (ESRCH);
@@ -2754,7 +2764,7 @@ ptrace_syscallreq(struct thread *td, struct proc *p,
 	td->td_errno = nerror;
 
 	if (audited)
-		AUDIT_SYSCALL_EXIT(error, td);
+		AUDIT_SYSCALL_EXIT(tsr->ts_ret.sr_error, td);
 	if (!sy_thr_static)
 		syscall_thread_exit(td, se);
 }
