@@ -12,6 +12,20 @@ Items affecting the ports and packages system can be found in
 /usr/ports/UPDATING.  Please read that file before updating system packages
 and/or ports.
 
+20260729:
+	14.4-RELEASE-p17 EN-26:18.tzdata
+			SA-26:52.if_wg
+			SA-26:54.sysvsem
+			SA-26:55.elf
+
+	Timezone database information update. [EN-26:18.tzdata]
+
+	Missing MAC validation in wg(4) packet decryption. [SA-26:52.if_wg]
+
+	Heap out-of-bounds access in semctl(2). [SA-26:54.sysvsem]
+
+	Race condition in ELF core dump segment counting. [SA-26:55.elf]
+
 20260630:
 	14.3-RELEASE-p16 EN-26:16.arm64
 			SA-26:37.vm
@@ -40,6 +54,8 @@ and/or ports.
 	unlinkat(2) ignores AT_RESOLVE_BENEATH flag. [SA-26:42.unlinkat]
 
 	Use-after-free in TCP RACK stack option handler. [SA-26:43.tcp]
+
+	Multiple vulnerabilities in POSIX largepage objects. [SA-26:44.posixshm]
 
 	Incorrect audit records for ptrace(2) syscall requests. [SA-26:45.audit]
 
